@@ -1,0 +1,6 @@
+1. Install Hadoop
+2. Download Airline Data and one your own selected dataset from Stat-Computing.org
+3. Learn to use PIG. You can try the example in the reference
+4. Use Oozie to schedule a few jobs
+5. Try HBase. Use your own example
+6. Try Hive. Use your own example
