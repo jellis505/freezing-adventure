@@ -1,0 +1,18 @@
+--Moving Extracted Reuters Data into Hadoop File System
+hdfs dfs -put /Users/joeellis/Documents/eclipse/workspace/big-data1/reuters-extracted/ /test/
+
+-- Create seqfile from the reuters extracted data
+bin/mahout seqdirectory -c UTF-8 -xm sequential -i /Users/joeellis/Documents/eclipse/workspace/big-data1/reuters-extracted/ -o /Users/joeellis/Documents/eclipse/workspace/big-data1/reuters-seqfile
+
+-- Create vectors TF-IDF unigram from the seqfile
+bin/mahout seq2sparse -i test/reuters-seqfile/ -o test/reuters-vectors -ow
+
+-- Perform the kmeans clustering on the sparse feature vectors
+bin/mahout kmeans -i test/reuters-vectors/tfidf-vectors -c reuters-initial-clusters -o reuters-kmeans-clusters -dm org.apache.mahout.common.distance.SquaredEuclideanDistanceMeasure -cd 1.0 -k 20 -x 20 -cl
+
+-- Create the output cluster dump to inspect the results
+bin/mahout clusterdump -dt sequencefile -d test/reuters-vectors/dictionary.file-0 -i reuters-kmeans-clusters/clusters-20-final -n 10 -b 10 -o reuters_cluster_output.txt
+
+-- Create the cluster dump with the full commands
+bin/mahout clusterdump -dt sequencefile -d test/reuters-vectors/dictionary.file-0 -i reuters-kmeans-clusters/clusters-20-final -o reuters_cluster_output_full.txt
+
