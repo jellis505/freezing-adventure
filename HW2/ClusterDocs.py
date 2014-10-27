@@ -77,7 +77,7 @@ class DocumentClusterer():
 
         pass
 
-    def perform_clustering(self):
+    def perform_clustering(self, cluster_dir):
         """ This does the actual clustering"""
 
         # Do dimensionality reduction
@@ -92,7 +92,6 @@ class DocumentClusterer():
         print cluster_centers
         # Now we have to try and save the cluster files
 
-        cluster_dir = "../Yahoo_Datasets/cluster_dir"
         if not os.path.exists(cluster_dir):
             os.mkdir(cluster_dir)
 
@@ -134,6 +133,6 @@ if __name__ == "__main__":
     #prepare_NYTimes_dir("../Yahoo_Datasets/wiki_short.xml", "../Yahoo_Datasets/wiki_arts")
     dc = DocumentClusterer("../Yahoo_Datasets/wiki_arts", "../Yahoo_Datasets/tf_idf.pickle", "../Yahoo_Datasets/article_names.txt")
     dc.create_dictionary()
-    dc.perform_clustering()
+    dc.perform_clustering("../Yahoo_Datasets/cluster_dir")
 
 
